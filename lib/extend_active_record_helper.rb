@@ -12,11 +12,11 @@ module ActionView::Helpers::ActiveRecordHelper
    options = params.extract_options!.symbolize_keys
    unless options[:object_name]
      first_name = params.first
-     first_object = instance_variable_get("@#{first_name}")
+     first_object = options[:object] || instance_variable_get("@#{first_name}")
      options[:object_name] = first_object.class.human_name if first_object
    end
    params << options
-   error_messages_for_without_translation(*params)
+   error_messages_for_without_i18n_ext(*params)
  end
 
  alias_method_chain :error_messages_for, :i18n_ext
